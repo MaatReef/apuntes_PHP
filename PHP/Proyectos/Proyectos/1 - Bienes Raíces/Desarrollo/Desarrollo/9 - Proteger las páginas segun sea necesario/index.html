@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>9. Proteger las páginas segun sea necesario</h1>
+    <p>Para evitar duplicar código, (es decir, copiar el punto 4 del apartado anterior) y distribruirlo en todas las páginas, es mejor crear una función que llamaremos en cada página que querramos proteger.</p>
+    <pre>
+        1ª function estaAutenticado() : bool { </pre>
+            
+    <p>Por lo cual, con una función desde un archivo que llamaremos dentro de otras páginas, se podrá proteger todas las rutas evitando el acceso a toda persona que no sea un usuario registrado dentro de la base de datos.</p>
+    <p>Carpeta includes, archivo funciones.php</p>
+    <pre>
+        < ?php
+
+            require 'app.php';
+
+            function incluirTemplate( string  $nombre, bool $inicio = false ) {
+                include TEMPLATES_URL . "/${nombre}.php"; 
+            }
+
+            function estaAutenticado() : bool { 	--1--
+                session_start();
+
+                $auth = $_SESSION['login'];
+                if($auth) {
+                    return true;
+                }
+                return false;		// Usamos return para evitar el uso del else, código mas corto
+            }  </pre>
+
+    <p>Carpeta admin, carpeta propiedades, archivo actualizar.php</p>
+
+    <pre>   
+        < ?php 
+
+            require '../../includes/funciones.php';
+            $auth = estaAutenticado();
+
+            if(!$auth) {
+                header('Location: /');
+            }</pre>
+
+    <p>También en.. <br>
+            Carpeta admin, archivo index.php
+    </p>
+
+    <pre>
+        < ?php 
+
+            require '../includes/funciones.php';
+            $auth = estaAutenticado();
+
+            if(!$auth) {
+                header('Location: /');
+            }</pre>
+
+    <p>También en.. <br>
+        Carpeta admin, carpeta propiedades, archivo crear.php
+    </p>
+
+    <pre>
+        < ?php 
+
+            require '../../includes/funciones.php';
+            $auth = estaAutenticado();
+
+            if(!$auth) {
+                header('Location: /');
+            }</pre>
+
+
+    <div class="context">
+        <a href="../8 - Iniciar sesion y la super global $_SESSION/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../10 - Cerrar Sesión/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

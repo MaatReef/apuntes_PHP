@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../6 - Inc Dec/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../8 - Arrays/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>7 - String Methods</h1>
+    <pre>
+        < ?php include 'includes/header.php';
+
+        $nombreCliente = "Juan Pablo";
+        
+        // Conocer extension de un string
+        echo strlen($nombreCliente); // 10 - Considera los espacios en blanco
+        var_dump($nombreCliente);   // string(10)
+        
+        // Eliminar espacios en blanco
+        $texto = trim($nombreCliente); //Elimina espacios en blanco como en Js
+        echo strlen($texto);
+        
+        //Convertirlo a mayusculas
+        echo strtoupper($nombreCliente);
+        
+        // Convertirlo en minusculas
+        echo strtolower($nombreCliente);
+        
+        $mail1 = "correo@correo.com";
+        $mail2 = "Correo@correo.com";
+        var_dump(strtolower($mail1) === strtolower($mail2)); // Igual
+    </pre>
+    <p>Por ejemplo es útil para evitar que se ingrese dobles registros dentro de una Base de datos, ya que un correo en mayúsculas o minúsculas es indeferente</p>
+    <pre>
+        //Reemplazar texto, 'Juan' es el elemento al que se apunta, reemplazado por 'J'
+        echo str_replace('Juan', 'J', $nombreCliente);
+        
+        // Revisar si un string existe o no, dentro de la variable $nombreCliente
+        echo strpos($nombreCliente, 'Pedro'); // No imprime nada, ya que no existe
+        echo strpos($nombreCliente, 'Juan'); // Posición 0, donde se encuentra
+    </pre>
+    <p>Para concatenar strings y variables</p>
+    <pre>
+        $tipoCliente = "Premium";
+        
+        echo "< br>";
+        
+        echo "El Cliente " . $nombreCliente . " es " . $tipoCliente; 
+        // Manera recomendable
+        
+
+        echo "El Cliente {$nombreCliente} es ${tipoCliente} "; // No tan recomendable
+        //El cliente Juan es premium
+        
+        include 'includes/footer.php';
+    </pre>
+    
+
+    <div class="context">
+        <a href="../6 - Inc Dec/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../8 - Arrays/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

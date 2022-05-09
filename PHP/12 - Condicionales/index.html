@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../11 - Funciones Arrays/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../13 - Loops/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>12 - Condicionales</h1>
+    <pre>
+        < ?php include 'includes/header.php';
+
+        $autenticado = true;
+        $admin = false;
+        
+        if($autenticado && $admin ) {
+            echo "Usuario autenticado correctamente";
+        } else {
+            echo "Usuario no autenticado, inicia sesión";
+        }
+        
+        // If anidados...
+        $cliente = [
+            'nombre' => 'Juan',
+            'saldo' => 0,
+            'informacion' => [
+                'tipo' => 'Regular'
+            ]
+        ];
+        
+        echo "< br>";
+        
+        if( !empty($cliente) ) {
+            echo "El Arreglo de cliente no esta vacio";
+        
+            if($cliente['saldo'] > 0) {
+                echo "El Cliente tiene saldo disponible";
+            } else {
+                echo "No hay saldo";
+            }
+        }
+        
+        echo "< br>";
+        
+        // else if
+        if($cliente['saldo'] > 0 ) {
+            echo "El Cliente tiene saldo";
+        } else if ($cliente['informacion']['tipo'] === 'Premium') {
+            echo "El Cliente es Premium";
+        } else {
+            echo "No hay cliente definido o no tiene saldo o no es premium";
+        }
+        
+        // Switch.
+        
+        echo "< br>";
+        
+        $tecnologia = 'HTML';
+        
+        switch ($tecnologia) {
+            case 'PHP':
+                echo "PHP, un excelente lenguaje!";
+                break;
+            case 'JavaScript':
+                echo "Genial, el lenguaje de la web";
+                break;
+            case 'HTML':
+                echo 'Emmm...';
+                break;
+            default:
+                echo "Algún lenguaje que no se cual es";
+                break;
+        }
+        
+        
+        include 'includes/footer.php';
+
+    </pre>
+    
+
+    <div class="context">
+        <a href="../11 - Funciones Arrays/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../13 - Loops/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>10. Cerrar Sesión</h1>
+    <ul>
+        <li>1ª Redirigimos al usuario, una vez que inició sesión, una manera de mostrar que se inicio sesión correctamente.</li>
+        <li>2ª Cerrar sesión con un bóton de cerrar sesión.</li>
+    </ul>
+    <pre>
+        < ?php 
+            // Conectamos a la BD
+            require 'includes/config/database.php';
+            $db = conectarDB();
+        
+            // Autenticar el usuario
+        
+            $errores = [];
+        
+            if($_SERVER['REQUEST_METHOD'] === 'POST') { 			      
+                // echo "< pre>";	
+                // var_dump($_POST);  	
+                // echo "</ pre>";
+        
+                $email = mysqli_real_escape_string($db,  filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL) );
+                $password = mysqli_real_escape_string($db,  $_POST['password']);
+        
+                if(!$email) {
+                    $errores[] = "El email es obligatorio o no es válido";
+        
+                if(!$password) {
+                    $errores[] = "El Password es obligatorio";
+                }
+        
+                if(empty($errores)) {
+        
+                    // Revisar si el usuario existe.					
+                    $query = "SELECT * FROM usuarios WHERE email = '${email}' ";		
+                    $resultado = mysqli_query($db, $query);
+        
+        
+                    
+        
+                    if( $resultado->num_rows ) {					
+                        // Revisar si el password es correcto
+                        $usuario = mysqli_fetch_assoc($resultado);		
+        
+                        // var_dump($usuario['password']); 
+        
+                        // Verificar si el password es correcto o no
+        
+                        $auth = password_verify($password, $usuario['password']); 
+        
+                        if($auth) {
+                            // El usuario esta autenticado	
+                            session_start();				
+        
+                            // Llenar el arreglo de la sesión
+                            $_SESSION['usuario'] = $usuario['email'];	
+                            $_SESSION['login'] = true;
+        
+            
+                            header('Location: /admin');			--1--
+        
+                        } else {
+                            $errores[] = 'El password es incorrecto';
+                        }
+                    } else {
+                        $errores[] = "El Usuario no existe";
+                    }
+                }
+        
+            }
+            
+            // Incluye el header
+            require 'includes/funciones.php';
+            incluirTemplate('header');
+        ?> </pre>
+        
+    <p>Carpeta includes, carpeta templates, archivo header.php</p>
+    <ul>
+        <li>3ª en el archivo header.php, corroboramos con un if, si la super global no está, iniciamos sesion, de lo contrario si ya la tenemos, la ignora.</li>
+        <li>4ª si la sesión está activa creamos un botón de cerrar sesión, siempre y cuando el usuario inice la sesión.</li>
+    </ul>
+    <pre>
+        < ?php
+            if(!isset($_SESSION)) {
+                session_start();    --3--
+            }
+
+            $auth = $_SESSION['login'] ?? false;
+        ?>
+
+        < !DOCTYPE html>
+        < html lang="en">
+        < head>
+            < meta charset="UTF-8">
+            < meta name="viewport" content="width=device-width, initial-scale=1.0">
+            < title>Bienes Raices< /title>
+            < link rel="stylesheet" href="/build/css/app.css">
+        < /head>
+        < body>
+            
+            < header class="header <?php echo $inicio  ? 'inicio' : ''; ?>">
+                < div class="contenedor contenido-header">
+                    < div class="barra">
+                        < a href="/">
+                            < img src="/build/img/logo.svg" alt="Logotipo de Bienes Raices">
+                        < /a>
+
+                        < div class="mobile-menu">
+                            < img src="/build/img/barras.svg" alt="icono menu responsive">
+                        < /div>
+
+                        < div class="derecha">
+                            < img class="dark-mode-boton" src="/build/img/dark-mode.svg">
+                            < nav class="navegacion">
+                                < a href="nosotros.php">Nosotros< /a>
+                                < a href="anuncios.php">Anuncios< /a>
+                                < a href="blog.php">Blog< /a>
+                                < a href="contacto.php">Contacto< /a>
+                                < ?php if($auth): ?>
+                                    < a href="cerrar-sesion.php">Cerrar Sesión< /a>  --4--
+                                < ?php endif; ?>
+                            < /nav>
+                        < /div>
+                        
+                    < /div> <!--.barra-->
+
+                    < ?php  echo $inicio ? "< h1>Venta de Casas y Departamentos Exclusivos de Lujo< h1>" : ''; ?>
+                < /div>
+            < /header></pre>
+
+    <p>Archivo cerrar-sesion.php, en la raíz del proyecto.</p>
+    <ul>
+        <li>5ª Recordar siempre iniciar sesión en el archivo en cuestión, es importante para acceder a la variable super global $_SESSION</li>
+        <li>6ª Existen funciones como session_unset o session_destroy. Pero en este caso, reescribimos la variable $_SESSION como un arreglo vacío, y redireccionamos a la raíz del proyecto.</li>
+    </ul>
+    <pre>
+        < ?php 
+
+            session_start(); 	--5--
+
+            $_SESSION = [];		--6--
+
+            header('Location: /');</pre>
+
+
+    <div class="context">
+        <a href="../9 - Proteger las páginas segun sea necesario/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+    </div>
+
+</body>
+
+</html>

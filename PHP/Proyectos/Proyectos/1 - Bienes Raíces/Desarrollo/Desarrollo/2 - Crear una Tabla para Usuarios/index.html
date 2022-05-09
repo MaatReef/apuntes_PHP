@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>2. Crear una tabla para usuarios</h1>
+    <p>En este proyecto no tendremos usuarios aleatorios que podrán registrarse, solo usuarios previamente definidos por la propia empresa. <br>
+       En el proximo proyecto, si se podrá crear usuarios aleatorios. <br><br>
+        
+        En este proyecto autenticaremos un unico usuario, que sera el administrador. <br><br>
+        
+        EN la raíz del proyecto creamos un archivo llamado usuario.php.. <br>
+        Al subir el proyecto a producción, es necesario eliminar dicho archivo.</p>
+
+    <p>El siguiente es un Snippet de código.. Útil</p>
+    <pre>
+        < ?php
+
+            // Importar la conexión 1ª			//Pasos
+            require 'includes/config/database.php';
+            $db = conectarDB();
+
+            // Crear un email y password, autenticado con email como facebook o twitter
+            $email = "correo@correo.com";
+            $password = "123456";
+
+            $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+
+
+            // Query para crear el usuario
+            $query = " INSERT INTO usuarios (email, password) VALUES ( '${email}', '${passwordHash}'); ";
+
+            // echo $query; //Solo para observar la variable email y passwordHash
+
+            // Agregarlo a la base de datos
+            mysqli_query($db, $query);</pre>
+            
+    <p>Creamos una tabla en la base de datos llamada "usuarios", junto con las otras dos de propiedades y vendedores. <br>
+    Dicha tabla tendra un id de tipo int(1) auto incrementable, un email de tipo varchar(50)  y un password de tipo char(60).</p>
+
+
+
+    <div class="context">
+        <a href="../1 - Principios de Autenticación/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../3 - Hashear Passwords/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

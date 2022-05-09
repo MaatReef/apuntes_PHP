@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>1. Principios de Autenticación</h1>
+    <p>Agregamos credenciales de inicio de sesiónAsí evitaremos que cualquier persona pueda ingresar al panel de Administración.<br>
+    Buenas prácticas para autenticar usuarios..<br>
+    Principios básicos de autenticación.</p>
+    <pre>
+        Hay diferentes formas de autenticar usuarios:
+        - Con algo que usuario recuerda (password)
+        - Con un dispositivo físico (Un mensaje a un celular)
+        - Con algo físico (Huella digital o Cara)</pre>
+        
+    <p>Algoritmo para autenticar... Email y password deben coincidir.</p>
+    <pre>
+        Otras validaciones incluyen:
+        -Si el usuario existe
+        -Si el usuario existe pero el password es incorrecto
+        -Si ambos son correctos entonces autenticar el usuario</pre>
+
+    <p>PHP y Autenticación:</p>
+    <p>Php contiene funciones para hashear passwords (no es lo mismo que encriptar).. <br>
+        También hay una función para verificar un password.<br>
+        Un password hasheado no se puede revertir.<br>
+        Si el usuario se le olvida deberá crear un nuevo password.</p>
+
+
+
+    <div class="context">
+        <a href="../../index.html">Inicio</a>
+        <a href="../2 - Crear una Tabla para Usuarios/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

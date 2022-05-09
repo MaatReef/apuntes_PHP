@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Comandos Sql</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico" />
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../../index.html">Inicio</a>
+        <a href="../1 - Hola Mundo/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    
+    <h1>Comandos SQL y operación CRUD </h1>
+    
+    <ul>
+        <li>Crear Base de Datos</li>
+        <p>Se puede hacer con phpMyAdmin, o cualquier visualizador, pero siempre es mejor conocer la sintaxis, saber cómo se maneja.</p>
+        <pre>
+            mysql> -u root -p;
+            //-u de usuario, será root, -p, de password, en este caso no tendrá. 
+            
+            mysql> SHOW DATABASES;
+            //Muestra la BD, recordar que el ; es obligatorio en Php para cerrar cada sentencia.
+            // Los comandos seteados por defecto de php, es recomendable colocarlos con mayúsculas, así se verá la diferencia entre lo que escribimos.
+            
+            mysql> CREATE DATABASE appsalon;
+            //lo que declaro se podrá especificar en minúsculas o mayúsculas.
+            
+            mysql> USE appsalon; 
+            //Escogemos esa base de dato en particular
+
+            mysql> SHOW TABLES;
+            //Muestra si la base de datos seleccionada tiene o no tablas seteadas.</pre>
+        <br>
+
+        <li>Crear tabla y tipos de datos en Mysql</li>
+        <pre>
+            mysql> CREATE TABLE servicios(
+                -> id INT(11));
+            //Si presionamos enter podemos cotinuar escribiendo siempre y cuando, no cerremos la sentencia con ;
+            //id - identificador único de servicios.
+            //Int de tipo entero.
+            //Int(1)- del 1 al 9, el 10 no se especifica, lo que va entre () marcará la extensión del valor</pre>
+        <p>Tipos de datos, existen más de 40 tipos de datos diferentes</p>
+        <pre>
+            Números: Enteros y decimales
+            Cadenas de Texto: Desde nombres a noticias(Acepta gran cantidad de caracteres).
+            Fechas y Horas.</pre>
+        <p>Números y Enteros:</p>
+        <pre>
+            Tipo:       Rango:                              UNSIGNED:
+            INT         -2100 millones a 1100 millones      0 A 4200+ millones (Mucho, por ejemplo válido para una tienda virtual)
+            TINYINT     -128 a 127                          0 a 255
+            SMALLINT    -32,768 a 32,767                    0 a 65,535
+            MEDIUMINT   -8.3 millones 1 8.3 millones        0 a 16.7 millones
+            BIGINT      -2º63 a 2-63-1                      0 a 2ª64-1
+            *Recordar siempre definir en cada base de dato el tipo de dato adecuado, de acuerdo a la situación.</pre>
+        <p>Números con decimales:</p>
+        <pre>
+            Tipo:       Usos:     
+            Float       Valores decimales (Porciones, por ejemplo, peso corporal)
+            Double      Valores decimales muy grandes (Coordenadas - Mapas)
+            Decimal     Valores donde no se acepta redondos (Dinero, por ejemplo para bancos, no redondea)</pre>
+        <p>Texto y Datos Binarios</p>
+        <pre>
+            Tipo:       Usos:
+            varchar     Texto corto, o texto que varía en un su extensión (Hasta 255 caracteres)
+            char        Corto, extensión fija (como un password, encriptado)Ejemplo, char(50), siempre será así fijo
+            text        Texto largo (como una entrada de blog, o noticia)
+            enum        Un valor de una Lista enumerada - (Ejemplo: Clientes base y cliente Premium)
+            blob        Imágnes, sonidos y archivos comprimidos. 
+                        (Estos archivos no se deben guardar en la BD, ya que se puede corromper cuando se satura con sobreinformación, por encima de lo que soporta, luego no se podrá recuperar)
+                        (Además, al realizar diversas consultas se hará de manera lenta).</pre>
+        <p>Fecha y Hora</p>
+        <pre>
+            Tipo:       Usos:
+            DATE        AAAA-MM-DD
+            TIME        hh:mm:ss 
+            DATETIME    AAAA-MM-DD hh:mm:ss 
+            TIMESTAMP   AAAA-MM-DD hh:mm:ss
+            YEAR        AAAA (Uso, sitio de clasificados de automóviles)</pre>
+        <p>Más comunes:</p>
+        <pre>
+            Tipo:       Usos:
+            INT         Números enteros
+            TINYINT     Números pequeños como edades - Hasta 255
+            DECIMAL     Dinero y Medidas
+            varchar     Textos Cortos - Hasta 255 caracteres
+            TEXT        Textos largos - Entradas de blog o noticias
+            DATETIME    Fechas</pre>
+        <pre>
+            mysql> CREATE TABLE servicios(
+                ->  id INT(11) NOT NULL AUTO INCREMENT,     //Con la extensión (11) se llega a los 4200 millones
+                ->  nombre VARCHART(60) NOT NULL,           //NOT NULL = No vacío 
+                ->  precio DECIMAL(5, 2) NOT NULL,          //VARCHART - Ingresa solo los caracteres necesarios de un limite de (60)
+                ->  PRIMARY KEY (id)
+                ->  ); //cierra                             //DECIMAL(5,2) ->  100.00
+                                                            //DECIMAL(6,2) -> 1000.00
+            SHOW TABLES;
+
+            DESCRIBE servicios; //Nos mostrará la estructura construida.</pre>
+        
+        <p>Laragon puede ser utilizado como servidor local, así como también puede utilizarse XAAMP</p>
+        <p>Si se utiliza laragon es necesario conosiderar y reubicar las rutas (path)</p>
+    
+        <p>¿Que es un CRUD? <br><br>
+        Create -> Crear <br>
+        Read -> Leer <br>
+        Update -> Actualizar <br>
+        Delete -> Eliminar</p>
+
+        <p>Insertar valores en una Base de Datos</p>
+        <pre>
+            mysql > INSERT INTO servicios(nombre,precio) VALUES("Corte de Cabello", 80);</pre>
+        <p>Para insertar variols Valores</p>
+        <pre>
+            mysql > INSERT INTO servicios(nombre, precio) VALUES   //Salto de línea para agregar más data
+                ->('Peinado Mujer', 80),                           //Como para insertar más valores a la tabla servicios
+                ->('Peinado Hombre', 60);                          //Punto y coma para cerrar la sentencia</pre>
+
+        <p>Seleccionar Elementos de una Tabla</p>
+        <pre>
+            mysql > SELECT * FROM servicios;            //Muestra la tabla con todos sus valores.
+            mysql > SELECT nombre, precio FROM servicios;
+            mysql > SELECT id, nombre, precio FROM servicios;
+            mysql > SELECT id, nombre, precio FROM servicios ORDER BY precio; //Se ordenarán de menor a mayor
+            mysql > SELECT id, nombre, precio FROM servicios ORDER BY precio ASC; //Se ordenarán de menor a mayor
+            mysql > SELECT id, nombre, precio FROM servicios ORDER BY precio DESC; //Se ordenarán de mayor o menor
+
+            mysql > SELECT id, nombre, precio FROM servicios ORDER BY id ASC; //Se ordenarán de menor a mayor en relación al id
+            mysql > SELECT id, nombre, precio FROM servicios ORDER BY id DESC; //Se ordenarán de mayor o menor en relación al id
+            //De esta manera podremos ordenar las consultas en base a lo que se requiera.
+        
+            mysql > SELECT id, nombre, precio FROM servicios LIMIT 2; //De esta manera traerá solo dos registros del total.
+            
+            mysql > SELECT id, nombre, precio FROM servicios ORDER BY id DESC LIMIT 2; //Podremos combinar las consultas
+        
+            mysql > SELECT id, nombre, precio FROM servicios WHERE id=3; //Aquí traeremos exclusivamente ese registro</pre>
+
+        <p>Seleccionar elementos en específico</p>
+        <pre>
+            mysql > UPDATE servicios SET precio = 70 WHERE id = 2;
+                                                    //IMP. tanto update y delete siempre lleva el WHERE, SI NO SE COLOCA.
+                                                    //Actualiza todo el registro o bien lo elimina
+            mysql > UPDATE servicios SET nombre = "Corte Actualizado" WHERE id = 2;
+                                                    //O actualizar datos de manera aislada.
+            mysql > UPDATE servicios SET nombre = "Corte Actualizado",
+                                        precio = 80 WHERE id = 2;
+                                        //Podemos setear y actualizar datos de manera conjunta</pre>
+        <p>Elimar Registros</p>
+        <pre>   
+                                        //Importante el Where, de lo contrario se elimina todo.
+            mysql > DELETE FROM servicios WHERE id = 1;
+            mysql > DELETE FROM servicios WHERE id = 4;
+            //* Los espacios vacíos sql también los considera, si agregamos otra fila eliminando la 4..
+                                                //la siguiente fila la agregará en el espacio 5.</pre>
+        <p>Modificar la Base de Datos</p>
+        <pre>      
+            //Modificamos la tabla existente., para almacenar más columnas
+            mysql > ALTER TABLE servicios ADD descripcion VARCHAR(100) NOT NULL;
+                                                            //Nombre de la columna
+            mysql > ALTER TABLE servicios CHANGE descripcion nuevonombre VARCHAR(11) NOT NULL;
+
+            mysql > INSERT INTO servicios(nombre, precio, nuevonombre) VALUES ('Peinado', 100, 'Hola');
+            
+            //*Se pueden modificar el tipo de dato siempre y cuando sean compatibles, de un tipo de dato de INT() a otro, no de un INT() a un VARCHAR()
+
+            mysql > ALTER TABLE servicios DROP COLUMN descripcion;
+                                            //Elina la columna descripción.</pre>
+        <p>Eliminar TABLAS</p>
+
+        <pre>
+            //Se puede agregar todas las tablas que se requieran, considerar el servidor en cuanto a la capacidad.
+            mysql > SHOW TABLES;
+
+            mysql > DROP TABLE servicios;
+                            //Elimina la tabla, asegurarse.. Ya que eliminada no se recuperará.
+                            //Por esto también es importante considerar el WHERE
+            
+            mysql > CREATE TABLE servicios (
+                  -> id INT NUT NULL AUTO_INCREMENTE,     
+                  -> nombre VARCHAR(60) NOT NULL,     
+                  -> precio DECIMAL(6,2) NOT NULL,
+                  -> PRIMARY KEY(id)
+                  -> );     
+            
+            mysql > DESCRIBE servicios;
+
+            mysql > CREATE TABLE reservaciones (
+                  -> id INT(11) NOT NULL AUTO_INCREMENT,
+                  -> nombre VARCHAR(60) NOT NULL,
+                  -> apellido VARCHAR(60) NOT NULL,
+                  -> hora TIME DEFAULT NULL,           // El default toma la hora en la cual se crea el registro.
+                  -> fecha DATE DEFAULT NULL,
+                  -> servicios VARCHAR(255) NOT NULL,
+                  -> PRIMARY KEY(id)
+                  -> );
+            
+            mysql > SHOW TABLES;    //Mostrará las tablas de servicios y reservaciones.</pre>
+        
+        <p>Selecionar Servicios por precio</p>
+        <pre>
+            mysql > SELECT * FROM servicios WHERE precio > 90;
+            mysql > SELECT * FROM servicios WHERE precio < 90;
+            mysql > SELECT * FROM servicios WHERE precio <= 90; //Tal cual como en JS.
+            mysql > SELECT * FROM servicios WHERE precio >= 90;
+            mysql > SELECT * FROM servicios WHERE precio = 90;
+
+            mysql > SELECT * FROM servicios WHERE precio BETWEEN 100 AND 200;
+                                                         //Entre</pre>
+        <p>Otros Selectores con mysql</p>
+        <pre>
+            //Funciones agregadoras de un grupo de valores.
+            //count()
+            //sum()     //Creamos tablas virtuales temporales
+            //min()     //
+            //max()
+
+            mysql > SELECT COUNT(id), fecha
+                  -> FROM reservaciones
+                  -> GROUP BY fecha
+                  -> ORDER BY COUN(id) DESC;
+                                       //Alias de la tabla temporal totalServicios
+            mysql > SELECT SUM(precio) AS totalServicios FROM servicios;
+                            //Suma todos los precios
+
+            mysql > SELECT MIN(precio) AS precioMenor FROM servicios;
+            mysql > SELECT MAX(precio) AS precioMenor FROM servicios;
+                            //Precio menor de todos los precios.</pre>
+        <p>Como buscar en SQL</p>
+        <pre>
+                                //Tabla          //columna  
+            mysql > SELECT * FROM servicios WHERE nombre LIKE 'Corte%'; //Inicia con Corte
+
+            mysql > SELECT * FROM servicios WHERE nombre LIKE '%Corte'; //Que termina con Corte
+
+            mysql > SELECT * FROM servicios WHERE nombre LIKE '%Corte%'; //Que contiene Corte</pre>
+        <p>Concatenar con sql</p>
+        <pre>
+            //Columnas separadas que unimos con sql, concat()
+            mysql > SELECT CONCAT (nombre, ' ', apellido) AS nombreCompleto FROM reservaciones;
+                          //concat unimos en una tabla virtual temporal AS, nombreCompleto
+
+            mysql > SELECT * FROM reservaciones
+                 -> WHERE CONCAT (nombre, "", apellido) LIKE '%ANA PRECIADO%';
+                                //Buscamos una concatenación que creamos.
+
+            mysql > SELECT hora, fecha, CONCAT(nombre, "", apellido) as 'NombreCompleto'
+                 -> From reservaciones                          //Y lo almacena en una tabla con alias.
+                 -> WHERE CONCAT(nombre, "", apellido)
+                 -> LIKE '%ANA Preciado';</pre>
+        <p>Revisar por múltiples condicionales</p>
+        <pre>
+            //In ( , )
+            mysql > SELECT * FROM reservaciones WHERE id IN(1,3);
+                                    //AND, Y 
+            mysql > SELECT * FROM reservaciones WHERE fecha="2021-06-08" AND id = 1;
+
+            mysql > SELECT * FROM reservaciones WHERE fechas= "" AND id = 1 AND nombre = "Juan";
+                                                                //Con AND buscamos en múltiples condicionales
+            //Se pueden combinar diversas funciones AND id IN(1,3);</pre>
+    </ul>
+
+    <div class="context">
+        <a href="../../index.html">Inicio</a>
+        <a href="../1 - Hola Mundo/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

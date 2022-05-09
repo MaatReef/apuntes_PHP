@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../2 - Variables/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../4 - Operadores/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>3 - Tipos de Datos</h1>
+    <ul>
+        <li>Boolean</li>
+        <li>Enteros</li>
+        <li>Floats</li>
+        <li>Strings</li>
+    </ul>
+    <pre>
+        < ?php include 'includes/header.php';
+
+        // Boolean
+        $logueado = true; //Debe ir sin comillas de lo contrario será un string
+        var_dump($logueado); // bool(true)
+        
+        // Enteros
+        $numero = 200;
+        var_dump($numero); // int(200)
+        
+        // Floats / Flotantes
+        $float = 200.5;
+        var_dump($float); // float(200.5)
+        
+        // Strings
+        $nombre = "Matias"; //Utilizar comillas simples o dobles, elegir y no mezclar
+        var_dump($nombre); // string(6)
+        
+        $array = [];
+        var_dump($array); //array(0) {}
+        
+        
+        include 'includes/footer.php';    
+    </pre>
+    
+    <div class="context">
+        <a href="../2 - Variables/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../4 - Operadores/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

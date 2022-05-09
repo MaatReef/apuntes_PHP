@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../15 - Funciones/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../17 - Require/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>16 - Types</h1>
+    <pre>
+        < ?php 
+        declare(strict_types=1);
+        include 'includes/header.php';
+                                                        // También se puede realizar una..
+                                                        // | "unión" de retorno de 2 datos posibles 
+                                                        // De lo contario, no devuelve nada
+                                                        // : string | int {    
+        function usuarioAutenticado(bool $autenticado) : ?string {
+            if($autenticado) {
+                return "El Usuario esta autenticado";
+            } else {
+                return null;                            // return [];  //Retornará un null
+            }
+        }
+        
+        $usuario = usuarioAutenticado(false);
+        echo $usuario;
+        
+        include 'includes/footer.php';
+    </pre>
+    <p>Named Parameters en php</p>
+    <pre>
+        function sumar(int $numero1, int $numero2) {
+            echo $numero1 + $numero2;
+        }
+
+     sumar (numero 1: 10, numero2: 20);  //30 mejor así, para un mejor orden.
+
+     sumar (numero 2: 10, numero1: 20);  //30 
+     
+     //Dará igual, si invertimos el orden de las variables, ya que están nombradas de antemano;
+
+    </pre>
+    <div class="context">
+        <a href="../15 - Funciones/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../17 - Require/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

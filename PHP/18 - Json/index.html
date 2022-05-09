@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../17 - Require/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../19 - Programación Orientada a Objetos/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>18 - Json</h1>
+    <p>Json es conocido como un medio de transporte para comunicar distintos lenguajes</p>
+    <p>Por lo cual podremos tenere un arreglo asociativo en php, convertirlo con json_encode  a un string para consumirlo con Js</p>
+    <pre>
+        < ?php include 'includes/header.php';
+
+        $productos = [
+            [
+                'nombre' => 'Tablet', 
+                'precio' => 200,
+                'disponible' => true
+            ],
+            [
+                'nombre' => 'Televisión 24"', 
+                'precio' => 300,
+                'disponible' => true
+            ],
+            [
+                'nombre' => 'Monitor Curvo', 
+                'precio' => 400,
+                'disponible' => false
+            ]
+        ];
+        
+        echo "< pre>";
+        var_dump($productos);
+        
+        $json = json_encode($productos, JSON_UNESCAPED_UNICODE);
+                                        //Para que considere las tildes
+        $json_array = json_decode($json);
+                                    //Por lo cual de un arreglo asociativo lo llevamos a un string, o también podemos hacerlo a la inversa
+        var_dump($json);
+        var_dump($json_array);
+        echo "</ pre>";
+        
+        
+        
+        
+        include 'includes/footer.php';
+    </pre>
+    
+    <div class="context">
+        <a href="../17 - Require/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../19 - Programación Orientada a Objetos/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

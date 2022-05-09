@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>6. Revisar si un usuario existe o no</h1>
+    <ul>
+        <li>1ª Si el usuario con su password pasa la validación, tenemos que realizar otras comprobaciones..
+            <ul>
+                <li>-- Revisar que el usuario existe </li>
+                <li>-- Verificar que el password coincide</li>
+                <li>-- Autenticamos al usuario.</li>
+            </ul>
+        </li>
+
+        <li>2ª Revisar si el usuario existe, lo hacemos con un WHERE, con el cual buscaremos de manera específica.</li>
+        <pre>
+            query = "SELECT * FROM usuarios WHERE email = '${email}' ";</pre>
+
+        <li>3ª Buscaremos en el rows, al hacer la consulta a la base de datos, consultamos si hay o no resultados dentro de la tabla en la base de datos y como es un objeto utilizamos la sintaxis de flecha para acceder a él ->
+            if( $resultado->num_rows ) {</li>
+    </ul>
+    <pre>
+        < ?php 
+            // Conectamos a la BD
+            require 'includes/config/database.php';
+            $db = conectarDB();
+
+            // Autenticar el usuario
+
+            $errores = [];
+
+            if($_SERVER['REQUEST_METHOD'] === 'POST') { 			      
+                // echo "< pre>";	
+                // var_dump($_POST);  	
+                // echo "< /pre>";
+
+                $email = mysqli_real_escape_string($db,  filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL) );
+                $password = mysqli_real_escape_string($db,  $_POST['password']);
+
+                if(!$email) {
+                    $errores[] = "El email es obligatorio o no es válido";
+
+                if(!$password) {
+                    $errores[] = "El Password es obligatorio";
+                }
+
+                if(empty($errores)) {
+
+                    // Revisar si el usuario existe.					--2--
+                    $query = "SELECT * FROM usuarios WHERE email = '${email}' ";	// Es la consulta	
+                    $resultado = mysqli_query($db, $query);
+
+
+                    
+
+                    if( $resultado->num_rows ) {					--3--
+                        // Revisar si el password es correcto
+                        
+                    } else {
+                        $errores[] = "El Usuario no existe";
+                    }
+                }
+
+            }
+            
+            // Incluye el header
+            require 'includes/funciones.php';
+            incluirTemplate('header');
+        ? ></pre>
+
+
+
+    <div class="context">
+        <a href="../5 - Validaciones al Formulario/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../7 - Revisar si el password es Correcto o no/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

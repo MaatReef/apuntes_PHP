@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>3. Hashear Passwords</h1>
+    <p>Se hashea para así evitar que el administrador por ejemplo de una Base de Datos pueda leer los datos de las personas, como ejemplo.. <br> O bien evitar el ataque cuando se intenta hackear la Base de Datos</p>
+    <p>Antes se usaba (md5($password)); ya no se utiliza que md5 genera un hash que es estático, es decir, no cambia.</p>
+    <p>Función de php para hashear passwords, toma dos variables, primero la variable a hashear y segundo una opción que puede ser..</p>
+    <pre>
+        PASSWORD_DEFAULT -- genera un hash aleatorio
+        PASSWORD_BCRYPT -- También genera uno aleatorio
+        Cualquiera de las dos se puede utilizar.</pre>
+        
+    <p>En otras versiones existia una tercera variable, $cost, que evaluaba cuantas veces se realizaría la ronda de hasheo, ya no se utiliza.</p>
+    <pre>
+        $passwordHash = password_hash($password, PASSWORD_BCRYPT);</pre>
+
+    <p>Tendremos una extensión de un password hasheado de 60 caracteres, esto se debe al tipo de dato que colocamos en la tabla de password, char(60), si fuese varchar(60), se limitaría a la cantidad de caracteres que equivale el password. <br>
+        Por ejemplo para un password de "12345", tendriamos a una extensión hasheada de 5 caracteres con varchar(60). <br>
+        Con char(60), tendremos un password hasheado de 60 caracteres SIEMPRE aún teniendo un password de 5 caracteres. <br>
+    </p>
+    <p>Por lo cual.. <br>
+        varchar es recomendable para una extensión variable de texto, se autoajusta. <br>
+        char es recomendable cuando una extensión es fija, ejemplo passwords en este ejemplo. <br>
+        </p>
+    <pre>
+        // Query para crear el usuario
+        $query = " INSERT INTO usuarios (email, password) VALUES ( '${email}', '${passwordHash}'); "</pre>
+
+    <p>Una vez el password hasheado, ni el administrado de la base de datos podrá ver, es más, si al usuario se le olvida el password, no hay manera de encontrarlo, 
+
+        tendrá que restablecer la contraseña. <br>
+        Es decir, hacer un UPDATE al registro.</p>
+
+
+    <div class="context">
+        <a href="../2 - Crear una Tabla para Usuarios/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../4 - Creando un formulario para Autenticar/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

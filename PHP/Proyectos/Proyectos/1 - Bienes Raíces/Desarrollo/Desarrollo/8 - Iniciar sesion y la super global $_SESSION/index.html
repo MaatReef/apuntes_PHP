@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>8. Iniciar sesion y la super global $_SESSION</h1>
+    <p>Luego de las comprobaciones de los usuarios sigue autenticarlo, almacenarlo en un lugar seguro para luego permitirle a los usuarios, navegar y visitar diferentes páginas, si no están autenticados restringimos el acceso.</p>
+    <ul>
+        <li>1ª Usamos la super global $SESSION que almacena información del usuario una vez autenticado.</li>
+        <pre>
+            session_start();	 // Primero se inicia la sesión para luego tener acceso a la variable.
+            echo "< pre>";
+                var_dump($_SESSION);
+            echo "< /pre>";</pre>
+        <li>2ª La super global $_SESSION la iniciamos primero y luego en ella podemos almacenar lo que queramos, $_SESSION['Lo que'] = "se quiera";</li>
+        <pre>
+            // Llenar el arreglo de la sesión
+            $_SESSION['usuario'] = $usuario['email'];	--1--
+            $_SESSION['login'] = true;</pre>
+
+        <p>Esta información guardada la podemos luego repartir a hacias otras páginas al momento de navegar, por lo cual es una variable super global.
+            Ejemplo para navegar de acuerdo a roles $_SESSION['rol'] = 1; el rol estaría definido en la tabla dentro de la BD, 1, para todo, 2, para algunas páginas, entre otras.</p>
+        <li>3ª La información estará siempre activa dentro de la variable, hasta cerrar la sesión, o expire.</li>
+        <li>4ª En este punto nos redirigimos a otra página, es decir index.php dentro de las propiedades y en caso de que el usuario esté autenticado.</li>
+        
+        <pre>
+            Si la variable auth existe porque está como true, es decir se queda logueado.. 
+            De lo contrario si no existe, lo dirigimos a la página principal, a la ráiz del proyecto.
+            < ?php 
+    		    session_start();		--4--
+    	
+                $auth = $_SESSION['login'];
+
+                    if(!$auth) {
+                        header('Location: /');
+                    }</pre>
+    </ul>
+    
+    <pre>
+        < ?php 
+            // Conectamos a la BD
+            require 'includes/config/database.php';
+            $db = conectarDB();
+
+            // Autenticar el usuario
+
+            $errores = [];
+
+            if($_SERVER['REQUEST_METHOD'] === 'POST') { 			      
+                // echo "< pre>";	
+                // var_dump($_POST);  	
+                // echo "< /pre>";
+
+                $email = mysqli_real_escape_string($db,  filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL) );
+                $password = mysqli_real_escape_string($db,  $_POST['password']);
+
+                if(!$email) {
+                    $errores[] = "El email es obligatorio o no es válido";
+
+                if(!$password) {
+                    $errores[] = "El Password es obligatorio";
+                }
+
+                if(empty($errores)) {
+
+                    // Revisar si el usuario existe.					
+                    $query = "SELECT * FROM usuarios WHERE email = '${email}' ";		
+                    $resultado = mysqli_query($db, $query);
+
+
+                    
+
+                    if( $resultado->num_rows ) {					
+                        // Revisar si el password es correcto
+                        $usuario = mysqli_fetch_assoc($resultado);		
+
+                        // var_dump($usuario['password']); 
+
+                        // Verificar si el password es correcto o no
+
+                        $auth = password_verify($password, $usuario['password']); 
+
+                        if($auth) {
+                            // El usuario esta autenticado	
+                            session_start();			--1--		
+
+                            // Llenar el arreglo de la sesión
+                            $_SESSION['usuario'] = $usuario['email'];	--2--
+                            $_SESSION['login'] = true;
+
+            
+                            header('Location: /admin');
+
+                        } else {
+                            $errores[] = 'El password es incorrecto';
+                        }
+                    } else {
+                        $errores[] = "El Usuario no existe";
+                    }
+                }
+
+            }
+            
+            // Incluye el header
+            require 'includes/funciones.php';
+            incluirTemplate('header');
+        ?></pre>
+
+    <p>En el index.php de la carpeta propiedades, dentro de la carpeta admin.</p>
+    <pre>
+        < ?php 
+            session_start();		--4--
+            
+            $auth = $_SESSION['login'];
+        
+            if(!$auth) {
+                header('Location: /');
+            } </pre>
+
+
+    <div class="context">
+        <a href="../7 - Revisar si el password es Correcto o no/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../9 - Proteger las páginas segun sea necesario/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

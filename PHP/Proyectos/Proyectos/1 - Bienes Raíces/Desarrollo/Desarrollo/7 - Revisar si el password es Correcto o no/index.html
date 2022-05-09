@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>7. Revisar si el password es Correcto o no</h1>
+    <ul>
+        <li>1ª Si el usuario existe lo almacenamos dentro de una variable.</li>
+        <pre>
+            $usuario = mysqli_fetch_assoc($resultado);	
+        	// var_dump($usuario['password']); 	//Observamos con var_dump toda la data que llega desde la BD</pre>
+        <li>2ª Verificamos si el password es correcto o no, con la función de PHP password_verify(1ª el password que el usuario a colocado, 2ª el passwrod hasheado), toma dos argumentos</li>
+        <pre>
+            $auth = password_verify($password, $usuario['password']);
+		    // auth de autenticado.</pre>
+        <li>3ª Verificamos que el password ser o no correcto con un if, else, junto con la verificación del correo que venía anteriormente.</li>
+    </ul>
+    
+    <pre>
+        < ?php 
+            // Conectamos a la BD
+            require 'includes/config/database.php';
+            $db = conectarDB();
+
+            // Autenticar el usuario
+
+            $errores = [];
+
+            if($_SERVER['REQUEST_METHOD'] === 'POST') { 			      
+                // echo "< pre>";	
+                // var_dump($_POST);  	
+                // echo "< /pre>";
+
+                $email = mysqli_real_escape_string($db,  filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL) );
+                $password = mysqli_real_escape_string($db,  $_POST['password']);
+
+                if(!$email) {
+                    $errores[] = "El email es obligatorio o no es válido";
+
+                if(!$password) {
+                    $errores[] = "El Password es obligatorio";
+                }
+
+                if(empty($errores)) {
+
+                    // Revisar si el usuario existe.					
+                    $query = "SELECT * FROM usuarios WHERE email = '${email}' ";		
+                    $resultado = mysqli_query($db, $query);
+
+                    if( $resultado->num_rows ) {					
+                        // Revisar si el password es correcto
+                        $usuario = mysqli_fetch_assoc($resultado);		--1--
+
+                        // var_dump($usuario['password']); 
+
+                        // Verificar si el password es correcto o no
+
+                        $auth = password_verify($password, $usuario['password']); --2--
+
+                        if($auth) {
+                            // El usuario esta autenticado
+                                    --3--	
+                        } else {
+                            $errores[] = 'El password es incorrecto';
+                        }
+                    } else {
+                        $errores[] = "El Usuario no existe";
+                    }
+                }
+
+            }
+            
+            // Incluye el header
+            require 'includes/funciones.php';
+            incluirTemplate('header');
+        ? ></pre>
+
+
+
+    <div class="context">
+        <a href="../6 - Revisar si un usuario existe o no/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../8 - Iniciar sesion y la super global $_SESSION/">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

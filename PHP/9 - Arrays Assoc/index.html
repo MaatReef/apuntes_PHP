@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../8 - Arrays/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../10 - Isset - Empty/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>9 - Arrays Assoc</h1>
+    <p>Equivale a los objetos en Js, se acceden a ellos por medio de las propiedades (props)</p>
+    <pre>
+        < ?php include 'includes/header.php';
+
+        $cliente = [
+            'nombre' => 'Juan',         
+            'saldo' => 200,
+            'informacion' => [              // Se pueden colocar todo tipo de datos
+                'tipo' => 'premium',        
+                'disponible' => 100
+            ]
+        ];
+        
+        echo "< pre>";
+        var_dump($cliente['informacion']);  // Se acede al nombre de la Propiedad
+        echo "< /pre>";
+        
+        // echo $cliente['nombre'];
+        // echo $cliente['informacion']['disponible']; // Se acede al nombre de la Propiedad, dentro de otra propiedad
+        
+        $cliente['codigo'] = 1209192012;
+        $cliente['nombre'] = 1209192012; // Si la propiedad ya la tenemos se reescribe
+        
+        echo "< pre>";
+        var_dump($cliente);
+        echo "< /pre>";
+        
+        include 'includes/footer.php';
+    </pre>
+    <p>Al hacer una consulta de SQL, las [] serñan las columnas por lo cual, los arreglos son muy utilizados</p>
+    <pre>
+        PHP        -> $cliente['nombre']
+        Javascript -> cliente.nombre
+    </pre>
+    
+    <div class="context">
+        <a href="../8 - Arrays/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../10 - Isset - Empty/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

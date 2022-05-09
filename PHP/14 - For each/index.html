@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../13 - Loops/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../15 - Funciones/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>14 - For Each</h1>
+    <p>For Each, para recorrer Arreglos</p>
+    <pre>
+        // For Each
+        $clientes = array('Pedro', 'Juan', 'Karen');
+
+        foreach( $clientes as $cliente ): 
+            echo $cliente . '< br/>';
+        endforeach;
+
+        //El Ciclo for each, genera un alias as $cliente
+    </pre>
+    <p>For</p>
+    <pre>
+        // For
+        for( $i=0; $i < count($clientes); i++){
+            echo $clientes[$i] . '< br/>'        //No le pasamos la posición
+        }   //as genera un alias $cliente
+        endfor;
+
+        // Con el for no le pasamos la extensión, se ejecuta siempre que haya elementos en el arreglo.  
+        // count() cuenta o mide la extensión del array
+        // sizeof() otra manera
+    </pre>
+    <p>En el caso de recorrer un Arreglo asociativo, el cual parecido al objeto de Js</p>
+    <pre>
+        $cliente = [
+            'nombre' => 'Juan',     //Imprimimos llave y valor 
+            'saldo' => 200,
+            'tipo' => 'Premium'
+        ];
+
+        foreach( $cliente as $key => $valor ):
+            echo $key . " - " . $valor . '< br/>';
+        endforeach;
+
+        // En este caso ($cliente as $key => $valor): recorremos el valor y también la llave
+
+        include 'includes/footer.php';
+    </pre>
+    <p>For Each y mostrar el contenido de un array</p>
+    <p>En este caso simulamos una Base de Datos con un arreglo asociativo el cual lo recorremos con un ciclo for each</p>
+    <pre>
+        < ?php include 'includes/header.php';
+
+        $productos = [
+            [
+                'nombre' => 'Tablet',
+                'precio' => 200,
+                'disponible' => true
+            ],
+            [
+                'nombre' => 'Television',
+                'precio' => 300,
+                'disponible' => true
+            ],
+            [
+                'nombre' => 'Monitor curvo',
+                'precio' => 400,
+                'disponible' => false
+            ]
+        ];
+
+        foreach($productos as $producto){  ?> // Cerramos la etiqueta de php y damos lugar al html < li>
+            < li>
+                < p> Producto: < ?php echo $producto['nombre']; ?> < /p>
+                < p> Precio: < ?php echo "$" . $producto['precio']; ?> < /p>
+                < p>< ?php echo ($producto['disponible'] ? 'Disponible' : 'No disponible'; ?> < /p>
+                                    //Operador Ternario, donde la condición es disponible o no
+            < /li>
+            <?php>              
+        }
+    </pre>
+    <p>Existen diferentes maneras para combinar HTML Y PHP</p>
+
+    <div class="context">
+        <a href="../13 - Loops/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../15 - Funciones/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

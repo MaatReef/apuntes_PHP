@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../12 - Condicionales/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../14 - For each/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>13 - Loops</h1>
+    <pre>
+        < ?php include 'includes/header.php';
+                              
+        // While
+        
+        $i = 0; // Inicializador
+        
+        while($i < 10) {
+        
+            echo $i . "< br>";   // No ejecuta el código hasta que consulta la condición.
+        
+            $i++; // Incremento
+        }
+        
+        echo "< br>";
+        
+        // Do While
+        $i = 100;
+        
+        do {
+            echo $i . "< br>"; // Ejecuta el código una vez y luego consulta la condición.
+        
+            $i++;
+        } while($i < 10);
+    </pre>
+    <p>Ejecricio Fizz Buzz, con ciclo For</p>
+    <pre>
+        /**
+         * 3 imprimir Fizz
+         * 5 imprimir Buzz
+         * 3 y 5 Imprimir FIZZ BUZZ
+         */
+        
+        // For Loop.
+        // for($i = 1; $i < 1000; $i++ ):
+        //     if($i % 3 === 0 && $i % 5 === 0):
+        //         echo $i . " - FIZZ BUZZ < br/>";
+        //     elseif($i % 3 === 0):
+        //         echo $i . " - Fizz < br/>";
+        //     elseif($i % 5 === 0 ):
+        //         echo $i . " - Buzz < br/>";
+        //     else:
+        //         echo $i . "< br/>";
+        //     endif;
+        // endfor;
+                
+        include 'includes/footer.php';
+    </pre>
+    
+    <div class="context">
+        <a href="../12 - Condicionales/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../14 - For each/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../14 - For each/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../16 - Types/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>15 - Funciones</h1>
+    <pre>
+        < ?php 
+        declare(strict_types=1);        //Para una mejor calidad de código, declaramos un tipado fuerte, lo forzamos de manera estricta
+        include 'includes/header.php';
+
+                        //Tipo de valor, en este caso consideramos int y array
+                        // $numero1 = 0 .. 0 será por defecto si no se incluye
+        function sumar(int $numero1 = 0, array $numero2 ) {
+            echo $numero1 + $numero2;
+        }
+        
+        sumar(10, []);
+    </pre>
+    <p>Otro ejemplo</p>
+    <pre>
+        function sumar(int $numero1 = 0, float $numero2 = 0 ) {
+            echo $numero1 + $numero2;
+        }
+        
+        sumar(10, 5.3);
+        
+        //Debido al tipado fuerte, si incluimos otro tipo de valor ejemplo, sumar(10, "valor"); , saltará el error.
+    
+        include 'includes/footer.php';    
+    </pre>
+    
+    <div class="context">
+        <a href="../14 - For each/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../16 - Types/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

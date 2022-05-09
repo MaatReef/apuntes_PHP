@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>4. Creando un formulario para Autenticar</h1>
+    <p>Utilizamos los archivos base.php y login.php</p>
+    <p>Archivo: login.php</p>
+    <pre>
+        < ?php 
+            // Incluye el header
+            require 'includes/funciones.php';
+            incluirTemplate('header');
+        ?>
+
+            main class="contenedor seccion contenido-centrado">
+                h1>Iniciar Sesión< /h1>
+
+                form class="formulario">
+                    fieldset>
+                        legend>Email y Password< /legend>
+
+                        label for="email">E-mail< /label>
+                        input type="email" placeholder="Tu Email" id="email">
+
+                        label for="password">Password< /label>
+                        input type="password" placeholder="Tu Password" id="password">
+                    /fieldset>
+                
+                    input type="submit" value="Iniciar Sesión" class="boton boton-verde">
+                /form>
+            /main>
+
+        <? php 
+            incluirTemplate('footer');
+        ?>
+
+        Las etiquetas estan abiertas, solo para efectos practicos observable las dejo abiertas.
+        Irian cerradas para un ejemplo concreto.</pre>
+        
+    <p>Dentro del input con el type="password" podemos esconder lo que el usario escribe.</p>
+
+
+    <div class="context">
+        <a href="../3 - Hashear Passwords/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../5 - Validaciones al Formulario/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

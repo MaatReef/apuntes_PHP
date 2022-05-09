@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div class="context">
+        <a href="../9 - Arrays Assoc/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../11 - Funciones Arrays/index.html">Siguiente</a>
+    </div>
+    <div class="contenido" id="arriba">
+        <h1>SQL + PHP - Notas</h1>
+    </div>
+    <h1>10 - Isset - Empty</h1>
+
+    <pre>
+        < ?php include 'includes/header.php';
+
+        $clientes = [];
+        $clientes2 = array();
+        $clientes3 = array('Pedro', 'Juan', 'Karen');
+        $cliente = [
+            'nombre' => 'Juan',
+            'saldo' => 200
+        ];
+    </pre>
+    <p>Empty</p>
+    <pre>
+        // Empty - Revisa si un arreglo esta vacio
+        var_dump( empty($clientes) );   // true
+        var_dump( empty($clientes3) );  // false
+        var_dump( empty($clientes2) );  // true
+    </pre>    
+    <p>Isset</p>
+    <pre>
+        // Isset - Revisar si un arreglo esta creado o una propiedad esta definida
+        echo "< br>";
+        var_dump( isset($clientes4) );
+        var_dump( isset($clientes) );
+        var_dump( isset($clientes2) );
+        var_dump( isset($clientes3) );
+        
+        // Isset - permite revisar si una propiedad de un arreglo asociativo, existe!
+        var_dump( isset($cliente['nombre']) );
+        var_dump( isset($cliente['codigo']) );
+        
+        
+        include 'includes/footer.php';
+    </pre>
+    
+
+    <div class="context">
+        <a href="../9 - Arrays Assoc/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../11 - Funciones Arrays/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

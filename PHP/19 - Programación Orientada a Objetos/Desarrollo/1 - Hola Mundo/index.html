@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>1 - Hola Mundo en Php, Aproximación</h1>
+    <pre>
+        < ?php include 'includes/header.php'; ?> 
+        // El cierre ?> no es obligatorio, recomendable dejarlo abierto.
+        //Salvo cuando se combina con Html
+    
+        < ?php echo "hola Mundo"; ?>
+
+        //El ; siempre es obligatorio para cerrar la sentencia.
+        //No es una función como tal, si no una construcción de Lenguaje
+
+        < ?php echo("Hola Mundo");
+
+        print("Hola Mundo");
+
+        print "Hola Mundo";
+        //Cuando no lleva () se interpreta como un "constructor de lenguaje"
+
+        print_r("Hola Mundo");
+        //print_r para saber el contenido de un arreglo o una variable.
+
+        var_dump("Hola Mundo");
+        // var_dump utilizado para debug de cógio, ejemplo para consultar una BD o una variable.
+
+        include 'includes/ footer.php'; ?>
+    </pre>
+    <p>No es recomendable utilizar PHP para generar HTML</p>
+    <pre>   
+        Ejemplo:
+        echo "< br/>"
+    </pre>
+
+    <p>Extensiones recomendables para Visual Studio Code:</p>
+    <li>
+        <ul>PHP Intelephense</ul>
+        <ul>PHP IntelliSense</ul>
+        <ul>PHP Debug</ul>
+        <ul>PHP Serve, similar a live server solo que para Php, click izquierdo, arranca el server</ul>
+    </li>
+
+    
+    <p>Al utilizar el server también lo podemos ejecutar desde Consola, es decir, desde la carpea que laburamos el proyecto...</p>
+    <pre>
+        php -s localhost:5000  01-hola-mundo.php 
+        //Ejemplo del archivo a ejecutar en el servidor, mientras que con Control + c, detenemos el servidor
+    </pre>
+
+
+    <div class="context">
+        <a href="../0 - Comandos Sql/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../2 - Variables/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>

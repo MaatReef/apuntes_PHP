@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SQL + PHP - Notas</title>
+    <link rel="shortcut icon" type=image/jpg href="img/logo/favicon.ico"/>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>5. Validaciones al Formulario</h1>
+    <p>Archivo login.php <br>
+        Recordar $_POST es una variable Super global</p>
+    <ul>
+        <li>1ª 2ª Leemos lo que venga del Post, es decir lo que se enviará a través del formulario.</li>
+        <li>3ª Corroboramos por un var_dump que conectamos bien la el metodo FORM desde la variable.</li>
+        <li>4ª Agregamos el name dentro del formulario, el cual permitirá leer cuando el meotod POST se active (enviemos el formulario)</li>
+        <li>5ª echo pre para formatear lo que veremos, se ordena el código.</li>
+        <li>6ª Creamos la variable $email y la variable $password que corresponden a lo que se envía desde el formulario</li>
+        <li>7ª Filtramos la variable con filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL) ); para así obtener un email válido <br>
+        <p>La validación debe ser tanto del Frontend con una advertencia o llamado de atención para el usuario <br>
+            Y también en el backend <br>
+            Por ejemplo en navegadores antiguos quizás la validación del frontend se salta y aún así tendremos el respaldo desde el backend </p>
+        <li>8ª la variable $email =  mysqli_real_escape_string( $db, y lo que filtramos como segundo parámetro); interactúa con la BD</li>
+        <li>9ª Lo mismo para variable $password = para observar que sea un String</li>
+        <li>10ª en caso de que la validación falle lo almacenamos en la variable $errores = []; la cual la tendremos por fuera para acceder a ella e imprimirla luego por pantalla, los errores será if(!email) que no halla email o no halla password if(!password).</li>
+        <li>11ª Por el lado del Frontend validamos con el atributo required dentro del input de html con un required</li>
+        <li>12ª Para deshabilitar la validación, se coloca un novalidate en el form</li>
+        <li>13ª Recorremos el arreglo de errores con un foreach para imprimirlos en la pantalla, recordar que el for each se activa cada vez que hayan elementos en un arreglo, es decir, para el caso que el usuario coloque un $email o un $password no válido.</li>
+        <li>14ª En caso de que errores esté vació.. Revisar si un usuario existe o no, próximo punto.</li>
+    </ul>
+
+    <p>Los puntos enunciados apuntan a una parte del código en cuestión.</p>
+    <pre>
+        < ?php 
+            // Conectamos a la BD
+            require 'includes/config/database.php';
+            $db = conectarDB();
+        
+            // Autenticar el usuario
+        
+            $errores = [];
+        
+            if($_SERVER['REQUEST_METHOD'] === 'POST') { 	--1--2--
+                // echo "< pre>";	--5--
+                // var_dump($_POST);  	--3-- 
+                // echo "< /pre>";
+        
+                $email = mysqli_real_escape_string($db,  filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL) ); --6--7--
+                --8--
+                $password = mysqli_real_escape_string($db,  $_POST['password']);
+        
+                if(!$email) {
+                    $errores[] = "El email es obligatorio o no es válido"; --10--
+                }
+        
+                if(!$password) {
+                    $errores[] = "El Password es obligatorio"; --10--
+                }
+        
+                if(empty($errores)) {
+                Próximo punto.. --14--
+                }
+        
+            }
+            
+            // Incluye el header
+            require 'includes/funciones.php';
+            incluirTemplate('header');
+        ?>
+        
+            < main class="contenedor seccion contenido-centrado">
+                < h1>Iniciar Sesión</ h1>
+        
+                <?php foreach($errores as $error): ?>	--13--
+                    < div class="alerta error">			
+                        <?php echo $error; ?>
+                    </ div>
+                <?php endforeach; ?>
+        
+                < form method="POST" class="formulario" novalidate>  --12--
+                    < fieldset>
+                        < legend>Email y Password</ legend>
+        
+                        < label for="email">E-mail</ label>
+                        < input type="email" name="email" placeholder="Tu Email" id="email">		
+                            --4--
+        
+                        < label for="password">Password</ label>
+                        < input type="password" name="password" placeholder="Tu Password" id="password">
+                            --4--
+        
+                    </ fieldset>
+                
+                    < input type="submit" value="Iniciar Sesión" class="boton boton-verde">
+                </ form>
+            </ main>
+        
+        < ?php 
+            incluirTemplate('footer');
+        ? ></pre>
+
+
+    <div class="context">
+        <a href="../4 - Creando un formulario para Autenticar/index.html">Volver</a>
+        <a href="../../index.html">Inicio</a>
+        <a href="../6 - Revisar si un usuario existe o no/index.html">Siguiente</a>
+    </div>
+
+</body>
+
+</html>
